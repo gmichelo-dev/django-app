@@ -2,8 +2,9 @@ name: build-with-actions
 on: [push, workflow_dispatch]
 
 permissions:
-  id-token: write # This is required for requesting the JWT
+  contents: read
   packages: write # This is required to push to GitHub registry
+
 jobs:
   build_with_docker:
     runs-on: nscloud
@@ -13,6 +14,9 @@ jobs:
       IMAGE_REPO: ghcr.io/${{ github.repository_owner }}
       VERSION: v0.0.1
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       # We are going to push to GH Container Registry
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -29,5 +33,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
           tags: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
