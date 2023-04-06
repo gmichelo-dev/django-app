@@ -29,38 +29,5 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: .
-          push: true
-          tags: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-
-  build_with_nscloud:
-    runs-on: nscloud
-    name: Build with Namespace Cloud
-    env:
-      IMAGE_NAME: nsc-django-example
-      IMAGE_REPO: ghcr.io/${{ github.repository_owner }}
-      VERSION: v0.0.1
-    steps:
-      # We are going to push to GH Container Registry
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Install CLI and authenticate to Namespace Cloud
-      - name: Install and configure Namespace Cloud CLI
-        uses: namespacelabs/nscloud-setup@v0.0.5
-
-      # Setup docker build to use your Namespace Cloud workspace build cluster
-      - name: Set up Namespace Cloud Buildx
-        uses: namespacelabs/nscloud-setup-buildx-action@v0.0.4
-
-      # Run Docker build-push action
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
           push: true
           tags: ${{ env.IMAGE_REPO }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
