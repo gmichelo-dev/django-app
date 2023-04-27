@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 
 permissions:
   contents: read
-  packages: write # This is required to push to GitHub registry
+  id-token: write
 
 jobs:
   build_with_docker:
