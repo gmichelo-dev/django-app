@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Cat docker config
         run: cat ~/.docker/config.json
+        
+      - name: docker version
+        run: docker version
     
       - name: Checkout code
         uses: actions/checkout@v3
