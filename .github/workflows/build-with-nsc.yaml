@@ -14,31 +14,15 @@ jobs:
       IMAGE_REPO: ghcr.io/${{ github.repository_owner }}
       VERSION: v0.0.1
     steps:
-      - name: Cat docker config
-        run: cat ~/.docker/config.json
-        
-      - name: docker version
-        run: docker version
-    
       - name: Checkout code
         uses: actions/checkout@v3
         
       - name: Configure access to Namespace
+        id: nscloud
         uses: namespacelabs/nscloud-setup@v0.0.5
         
       - name: Configure buildx
         uses: namespacelabs/nscloud-setup-buildx-action@v0.0.4
-        
-      - name: Cat docker config
-        run: cat ~/.docker/config.json
-        
-      - name: Configure docker credentials 
-        run: |
-          nsc docker-login --output_registry_to /tmp/registry
-          echo "NSCR_REGISTRY=$(cat /tmp/registry)" >> $GITHUB_ENV
-      
-      - name: Cat docker config
-        run: cat ~/.docker/config.json
 
       # Run standard Docker's build-push action
       - name: Build and push
@@ -46,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.NSCR_REGISTRY }}/docker-django-example:v0.0.1
+          tags: ${{ steps.nscloud.outputs.registry-address }}/docker-django-example:v0.0.1
