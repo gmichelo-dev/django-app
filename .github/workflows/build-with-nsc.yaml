@@ -19,10 +19,10 @@ jobs:
       
       - name: Configure access to Namespace
         id: nscloud
-        uses: namespacelabs/nscloud-setup@v0.0.5
+        uses: namespacelabs/nscloud-setup@v0
         
       - name: Configure buildx
-        uses: namespacelabs/nscloud-setup-buildx-action@v0.0.4
+        uses: namespacelabs/nscloud-setup-buildx-action@v0
 
       # Run standard Docker's build-push action
       - name: Build and push
