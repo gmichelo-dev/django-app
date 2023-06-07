@@ -1,4 +1,4 @@
-name: build-with-nsc
+name: build-with-small-runner
 on: [push, workflow_dispatch]
 
 permissions:
