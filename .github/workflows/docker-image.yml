@@ -1,0 +1,11 @@
+name: Breakpoint
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: namespacelabs/breakpoint-action@v0
+      with:
+        duration: 5m
+        authorized-users: gmichelo
