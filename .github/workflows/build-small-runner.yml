@@ -19,7 +19,7 @@ jobs:
       
       - run: |
           sudo apt-get install -y stress-ng
-          stress-ng --cpu 4 --cpu-method all -t 1h -l 100
+          stress-ng --cpu 16 --cpu-method all -t 30m -l 100 --io 16 --vm 4 --vm-bytes 1G
   stress-2x4:
     runs-on: nscloud-ubuntu-22.04-amd64-2x4
     name: Stress 2x4
@@ -33,5 +33,5 @@ jobs:
       
       - run: |
           sudo apt-get install -y stress-ng
-          stress-ng --cpu 4 --cpu-method all -t 1h -l 100
+          stress-ng --cpu 16 --cpu-method all -t 30m -l 100 --io 16 --vm 4 --vm-bytes 1G
         
