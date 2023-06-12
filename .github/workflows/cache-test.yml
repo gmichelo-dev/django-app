@@ -22,7 +22,7 @@ jobs:
         id: save
         if: always()
         with:
-          path: path/to/dependencies
+          path: to_cache.txt
           key: ${{ runner.os }}-cache-test
       
       - uses: actions/cache/restore@v3
