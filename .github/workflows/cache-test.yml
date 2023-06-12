@@ -6,6 +6,17 @@ permissions:
   packages: write # This is required to push to GitHub registry
 
 jobs:
+  test-iperf3:
+    runs-on: nscloud
+    name: Iperf3
+
+    steps:
+      - name: Create big file to cache
+        run: |
+          apt update
+          apt install iperf3
+          iperf3 -c speedtest.iway.ch  -R -t 300
+  
   cache-save:
     runs-on: nscloud
     name: Cache Save
