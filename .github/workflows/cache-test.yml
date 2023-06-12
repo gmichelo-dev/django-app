@@ -11,10 +11,10 @@ jobs:
     name: Iperf3
 
     steps:
-      - name: Create big file to cache
+      - name: Iperf3
         run: |
-          sudo apt update
-          sudo apt install iperf3
+          sudo apt update -y 
+          sudo apt install iperf3 -y
           iperf3 -c speedtest.iway.ch  -R -t 300
   
   cache-save:
