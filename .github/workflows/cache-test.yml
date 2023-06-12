@@ -16,7 +16,7 @@ jobs:
         
       - name: Create big file to cache
         run: |
-          tail --bytes 1G /dev/zero > to_cache.txt
+          tail --bytes 1G /dev/urandom > to_cache.txt
 
       - uses: actions/cache/save@v3
         id: save
