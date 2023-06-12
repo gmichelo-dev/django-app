@@ -16,7 +16,7 @@ jobs:
         
       - name: Create big file to cache
         run: |
-          tail --bytes 1G /dev/urandom > to_cache.txt
+          tail --bytes 5G /dev/urandom > to_cache.txt
 
       - uses: actions/cache/save@v3
         id: save
@@ -30,4 +30,3 @@ jobs:
         with:
           path: from_cache.txt
           key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
-          restore-keys: ${{ runner.os }}-cache-test
