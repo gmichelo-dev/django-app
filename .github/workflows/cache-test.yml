@@ -1,0 +1,32 @@
+name: cache-test
+on: [push, workflow_dispatch]
+
+permissions:
+  contents: read
+  packages: write # This is required to push to GitHub registry
+
+jobs:
+  cache-test:
+    runs-on: nscloud
+    name: Cache Test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Create big file to cache
+        run: |
+          tail --bytes 1G /dev/zero > to_cache.txt
+
+      - uses: actions/cache/save@v3
+        id: save
+        if: always()
+        with:
+          path: path/to/dependencies
+          key: ${{ runner.os }}-cache-test
+      
+      - uses: actions/cache/restore@v3
+        id: restore
+        with:
+          path: from_cache.txt
+          key: ${{ runner.os }}-cache-test
