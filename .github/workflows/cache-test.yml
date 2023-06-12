@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Create big file to cache
         run: |
-          tail --bytes 5G /dev/urandom > to_cache.txt
+          mkdir cache
+          tail --bytes 5G /dev/urandom > cache/file.txt
 
       - uses: actions/cache/save@v3
         if: always()
@@ -29,5 +30,5 @@ jobs:
     steps:      
       - uses: actions/cache/restore@v3
         with:
-          path: from_cache.txt
+          path: cache
           key: ${{ runner.os }}-cache-test-${{ github.sha }}
