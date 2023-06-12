@@ -15,7 +15,7 @@ jobs:
         run: |
           tail --bytes 5G /dev/urandom > to_cache.txt
 
-      - uses: actions/cache/save@v3
+      - uses: actions/cache@v3
         id: save
         if: always()
         with:
@@ -28,7 +28,7 @@ jobs:
     needs: cache-save
 
     steps:      
-      - uses: actions/cache/restore@v3
+      - uses: actions/cache@v3
         id: restore
         with:
           path: from_cache.txt
