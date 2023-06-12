@@ -19,7 +19,7 @@ jobs:
       - uses: actions/cache/save@v3
         if: always()
         with:
-          path: to_cache.txt
+          path: cache
           key: ${{ runner.os }}-cache-test-${{ github.sha }}
 
   cache-restore:
