@@ -27,7 +27,7 @@ jobs:
           mkdir cache
           tail --bytes 5G /dev/urandom > cache/file.txt
 
-      - uses: actions/cache/save@v2
+      - uses: actions/cache/save@v3
         if: always()
         with:
           path: cache
@@ -39,7 +39,7 @@ jobs:
     needs: cache-save
 
     steps:      
-      - uses: actions/cache/restore@v2
+      - uses: actions/cache/restore@v3
         with:
           path: cache
           key: ${{ runner.os }}-cache-test-${{ github.sha }}
