@@ -23,10 +23,10 @@ jobs:
         if: always()
         with:
           path: to_cache.txt
-          key: ${{ runner.os }}-cache-test
+          key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
       
       - uses: actions/cache/restore@v3
         id: restore
         with:
           path: from_cache.txt
-          key: ${{ runner.os }}-cache-test
+          restore-keys: ${{ runner.os }}-cache-test
