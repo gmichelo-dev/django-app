@@ -15,12 +15,11 @@ jobs:
         run: |
           tail --bytes 5G /dev/urandom > to_cache.txt
 
-      - uses: actions/cache@v3
-        id: save
+      - uses: actions/cache/save@v3
         if: always()
         with:
           path: to_cache.txt
-          key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
+          key: ${{ runner.os }}-cache-test-${{ github.sha }}
 
   cache-restore:
     runs-on: nscloud
@@ -28,9 +27,7 @@ jobs:
     needs: cache-save
 
     steps:      
-      - uses: actions/cache@v3
-        id: restore
+      - uses: actions/cache/restore@v3
         with:
           path: from_cache.txt
-          key: ${{ runner.os }}-cache-test-
-          restore-keys: ${{ runner.os }}-cache-test-
+          key: ${{ runner.os }}-cache-test-${{ github.sha }}
