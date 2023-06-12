@@ -29,4 +29,5 @@ jobs:
         id: restore
         with:
           path: from_cache.txt
+          key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
           restore-keys: ${{ runner.os }}-cache-test
