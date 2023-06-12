@@ -6,14 +6,11 @@ permissions:
   packages: write # This is required to push to GitHub registry
 
 jobs:
-  cache-test:
+  cache-save:
     runs-on: nscloud
-    name: Cache Test
+    name: Cache Save
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
       - name: Create big file to cache
         run: |
           tail --bytes 5G /dev/urandom > to_cache.txt
@@ -24,9 +21,16 @@ jobs:
         with:
           path: to_cache.txt
           key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
-      
+
+  cache-restore:
+    runs-on: nscloud
+    name: Cache Restore
+    needs: cache-save
+
+    steps:      
       - uses: actions/cache/restore@v3
         id: restore
         with:
           path: from_cache.txt
-          key: ${{ runner.os }}-cache-test-${{ hashFiles('to_cache.txt') }}
+          key: ${{ runner.os }}-cache-test-
+          restore-keys: ${{ runner.os }}-cache-test-
