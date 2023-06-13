@@ -1,6 +1,6 @@
 # Namespace Cloud Runner Example
 
-This repository shows how to use [Namespace Cloud](https://cloud.namespace.so/) GitHub Runners integration to build a sample Docker container.
+This repository shows how to use [Namespace](https://cloud.namespace.so/) GitHub Runners integration to build a sample Docker container.
 
 ## Community
 
